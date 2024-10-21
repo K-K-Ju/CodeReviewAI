@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "codereviewai"
+version = "0.1.0"
+description = ""
+authors = ["K-K-Ju <andrunivermail@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi="^0.115.2"
+openai="^1.52.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
