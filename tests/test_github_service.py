@@ -1,16 +1,17 @@
 import asyncio
 import json
 
+import httpx
 import pytest
 
 from codereviewai.services import github_service
+from codereviewai.config import settings
 from tests import request_test_content
 
 
 @pytest.fixture
 def github_owner_repo():
     return 'K-K-Ju', 'test-str-counter'
-
 
 @pytest.fixture
 def github_repo_json_content(github_owner_repo):
@@ -28,6 +29,16 @@ def github_repo_file_paths(github_owner_repo):
                   ('src/main/java/org/example/App.java', 'https://raw.githubusercontent.com/K-K-Ju/test-str-counter/master/src/main/java/org/example/App.java')]
     return github_owner_repo[0], github_owner_repo[1], file_paths
 
+
+def test_github_api_key(github_owner_repo):
+    headers = {
+        "Authorization": f"Bearer {settings.github_api_key}",
+        "Accept": "application/vnd.github+json"
+    }
+    url = f'https://api.github.com/repos/{github_owner_repo[0]}/{github_owner_repo[1]}/contents'
+
+    resp = httpx.get(url, headers=headers)
+    assert resp.status_code == 200
 
 def test_fetch_repo_contents(github_repo_content):
     content_json = asyncio.run(github_service.__fetch_repo_contents__(github_repo_content[0], github_repo_content[1]))
