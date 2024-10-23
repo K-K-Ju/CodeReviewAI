@@ -1,6 +1,6 @@
 import aiohttp
 
-from config import settings
+from codereviewai.config import settings
 
 
 async def __fetch_repo_contents__(owner: str, repo: str, path: str = ""):
@@ -29,7 +29,8 @@ async def __traverse_repo__(owner: str, repo: str, path: str = "", file_paths=No
             elif (item['name'] == 'LICENSE' or
                   item['name'] == 'license' or
                   item['name'] == 'COPYRIGHT' or
-                  item['name'] == '.gitignore'):
+                  item['name'] == '.gitignore' or
+                  item['name'] == 'README.md'):
                 continue
             elif item['type'] == 'file':
                 file_paths.append((item['path'], item['download_url']))

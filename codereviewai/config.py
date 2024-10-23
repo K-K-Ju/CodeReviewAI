@@ -1,9 +1,7 @@
-import os
-
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
-load_dotenv(dotenv_path='./.env')
+load_dotenv(dotenv_path='C:\\Users\\tusen\\Developing\\Python\\CodeReviewAI\\.env')
 
 
 class Settings(BaseSettings):
