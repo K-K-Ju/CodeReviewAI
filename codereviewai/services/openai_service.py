@@ -23,5 +23,5 @@ async def analyze_repo(repo_content, assignment_description, candidate_level):
         ],
     )
 
-    review_result = response.choices[0].message['content']
+    review_result = response.choices[0].message.content
     return review_result

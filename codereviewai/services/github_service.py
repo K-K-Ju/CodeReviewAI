@@ -1,3 +1,5 @@
+import asyncio
+
 import aiohttp
 
 from codereviewai.config import settings
@@ -47,10 +49,12 @@ async def get_repo_contents(owner: str, repo: str, path: str = ""):
     async with aiohttp.ClientSession() as session:
         for file_path, download_link in file_paths:
             async with session.get(download_link) as response:
+                await asyncio.sleep(0.1)
                 if response.status != 200:
                     raise Exception(f"Failed to fetch contents: {response.status}")
                 content = await response.text()
                 files.append(f"{file_path}\n\n{content}\n\n")
+
 
     contents_str = "".join(files)
     return contents_str
